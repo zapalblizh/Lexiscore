@@ -7,6 +7,15 @@ export const GameProvider = ({children}) => {
     const INITIAL_PLAYER_COUNT = 2;
     const SIZE_OF_GRID = 15;
 
+    // New States to modify current program
+    // Change direction in the future ==> setDirection(prev => prev === "horizontal" ? "vertical" : "horizontal");
+    const [direction, setDirection] = new useState("horizontal");
+    const [startPos, setStartPos] = useState({
+        status: false,
+        row: null,
+        col: null
+    })
+
     const [turns, setTurn] = useState([]);
     const [wordDict, setWordDict] = useState(new Set());
     const [errorMessage, setErrorMessage] = useState(null);
@@ -62,6 +71,7 @@ export const GameProvider = ({children}) => {
             });
     }, []);
 
+    // TODO: Comment once all is migrated to new system
     const [gameState, setGameState] = useState({
         start: {
             status: false,
@@ -75,6 +85,7 @@ export const GameProvider = ({children}) => {
         }
     });
 
+
     const [currentWord, setCurrentWord] = useState("");
     const [gameStart, setGameStart] = useState(false);
 
@@ -87,6 +98,8 @@ export const GameProvider = ({children}) => {
         gameState, setGameState,
         currentWord, setCurrentWord,
         gameStart, setGameStart,
+        direction, setDirection,
+        startPos, setStartPos
     };
 
     return <GameContext.Provider value={contextValue}>{children}</GameContext.Provider>;
