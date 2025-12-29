@@ -25,7 +25,6 @@ export const GameProvider = ({children}) => {
             Array.from({ length: SIZE_OF_GRID }, () => ({
                 letter: '',
                 bonus: null,
-                bonusAvailable: false,
                 blank: false
             }))
         );
@@ -71,20 +70,6 @@ export const GameProvider = ({children}) => {
             });
     }, []);
 
-    // TODO: Comment once all is migrated to new system
-    const [gameState, setGameState] = useState({
-        start: {
-            status: false,
-            row: null,
-            col: null
-        },
-        end: {
-            status: false,
-            row: null,
-            col: null
-        }
-    });
-
 
     const [currentWord, setCurrentWord] = useState("");
     const [gameStart, setGameStart] = useState(false);
@@ -95,7 +80,6 @@ export const GameProvider = ({children}) => {
         wordDict, SIZE_OF_GRID,
         board, setBoard,
         errorMessage, setErrorMessage,
-        gameState, setGameState,
         currentWord, setCurrentWord,
         gameStart, setGameStart,
         direction, setDirection,

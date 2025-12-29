@@ -5,8 +5,8 @@ export const VerifyWord = (board, startPos, direction, currentWord, players, gri
         : gridSize - startPos.row - 1;
 
     const includesCenter = direction === "horizontal"
-        ? startPos.col === Math.floor(gridSize / 2)
-        : startPos.row === Math.floor(gridSize / 2);
+        ? startPos.row === Math.floor(gridSize / 2)
+        : startPos.col === Math.floor(gridSize / 2);
 
     if (currentWord.length === 0)
         return { valid: false, message: 'Enter a word to submit.'};
@@ -14,9 +14,9 @@ export const VerifyWord = (board, startPos, direction, currentWord, players, gri
         return {valid: false, message: 'Select a start position for your word.'}
     else if (!(/^[a-zA-Z]+$/.test(currentWord)))
         return { valid: false, message: 'Word must contain only letters.'};
-    else if (currentWord.length <= distanceFromStartToBoardEdge + 1)
+    else if (currentWord.length > distanceFromStartToBoardEdge + 1)
         return { valid: false, message: 'Word must fit within the direction chosen for the word placement.'};
-    else if (players.every(player => player.score === 0) && includesCenter)
+    else if (players.every(player => player.score === 0) && !includesCenter)
         return { valid: false, message: 'Include the center tile in your word placement for the first turn.'};
     else if (!wordDict.has(currentWord.toUpperCase()))
         return { valid: false, message: 'Please enter a word that is included in the English dictionary.'};
@@ -30,8 +30,7 @@ export const VerifyWord = (board, startPos, direction, currentWord, players, gri
 
         if (letter === '')
             tileChanged = true;
-
-        if (letter !== currentWord[i])
+        else if (letter !== currentWord[i])
             return { valid: false, message: 'Select a word that fits in the direction after starting tile and does not replace existing letters.'};
     }
 

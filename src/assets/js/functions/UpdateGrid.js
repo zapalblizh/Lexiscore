@@ -1,25 +1,23 @@
-export const UpdateGrid = (board, currentTurn, gameState, currentWord) => {
+export const UpdateGrid = (board, currentTurn) => {
+    const letters = currentTurn.word.toUpperCase().split("");
 
-    const letters = currentWord.toUpperCase().split("");
-    if (letters.length === 0) return;
     const next = board.map(row => row.slice());
 
-    currentTurn.selection.indices.forEach(() => {
-        const limit = Math.min(currentTurn.selection.indices.length, letters.length);
-
-        if (currentTurn.selection.direction === "vertical") {
-            for (let i = 0; i < limit; i++) {
-                next[currentTurn.selection.indices[i]][currentTurn.selection.constant].letter = letters[i];
-                next[currentTurn.selection.indices[i]][currentTurn.selection.constant].bonusAvailable = false;
-            }
-        }
-        else if (currentTurn.selection.direction === "horizontal") {
-            for (let i = 0; i < limit; i++) {
-                next[currentTurn.selection.constant][currentTurn.selection.indices[i]].letter = letters[i];
-                next[currentTurn.selection.constant][currentTurn.selection.indices[i]].bonusAvailable = false;
-            }
-        }
-    });
+    const iteratorStart = currentTurn.direction === "horizontal" ? currentTurn.startPos.col : currentTurn.startPos.row;
+    for (let i = iteratorStart; i < iteratorStart + currentTurn.word.length; i++) {
+        if (currentTurn.direction === "horizontal")
+            next[currentTurn.startPos.row][i] = {
+                ...next[currentTurn.startPos.row][i],
+                letter: letters[i - iteratorStart],
+                blank: currentTurn.blankList[i - iteratorStart]
+            };
+        else if (currentTurn.direction === "vertical")
+            next[i][currentTurn.startPos.col] = {
+                ...next[i][currentTurn.startPos.col],
+                letter: letters[i - iteratorStart],
+                blank: currentTurn.blankList[i - iteratorStart]
+            };
+    }
 
     return next;
 }
