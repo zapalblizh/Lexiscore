@@ -8,7 +8,6 @@ export const GameProvider = ({children}) => {
     const SIZE_OF_GRID = 15;
 
     // New States to modify current program
-    // Change direction in the future ==> setDirection(prev => prev === "horizontal" ? "vertical" : "horizontal");
     const [direction, setDirection] = new useState("horizontal");
     const [startPos, setStartPos] = useState({
         status: false,
