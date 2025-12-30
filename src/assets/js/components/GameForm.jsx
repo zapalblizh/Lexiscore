@@ -16,8 +16,9 @@ export const GameForm = () => {
         e.preventDefault();
 
         let {processedWord, blankList} = BlankFilter(currentWord);
+
         // Returns alerts and true when passes through all checks
-        const validWord = VerifyWord(board, startPos, direction, processedWord, players, SIZE_OF_GRID, wordDict);
+        const validWord = VerifyWord(board, startPos, direction, processedWord.toUpperCase(), players, SIZE_OF_GRID, wordDict);
 
         if (validWord.valid) {
             let emptyList = [];

@@ -1,20 +1,25 @@
 export const BlankFilter = (currentWord) => {
     // Filter out blank tiles from word + insert into board
-    const blankLetterPattern = /\[([a-zA-Z])\]/g;
-    const blankPositions = [];
+    const blankLetterPattern = /\[([a-zA-Z])]/g;
     const blankList = [];
 
-    let processedWord = currentWord;
-    let match;
+    let processedWord = currentWord.replace(blankLetterPattern, "$1").toUpperCase();
 
-    // Finds all blank tiles
+    let match;
+    let offset = 0; // Track how many brackets we've seen
+
+    // Find all blank positions in original word
     while ((match = blankLetterPattern.exec(currentWord)) !== null) {
-        processedWord = processedWord.replace(match[0], match[1]);
-        blankPositions.push(`${match.index - 2}`);
+        const positionInProcessedWord = match.index - offset * 3;
+        blankList[positionInProcessedWord] = true;
+        offset++;
     }
 
+    // Fill remaining positions with false
     for (let i = 0; i < processedWord.length; i++) {
-        blankList[i] = blankPositions.includes(i);
+        if (blankList[i] === undefined) {
+            blankList[i] = false;
+        }
     }
 
     return {processedWord, blankList};

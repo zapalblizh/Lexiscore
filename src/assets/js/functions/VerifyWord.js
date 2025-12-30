@@ -28,6 +28,8 @@ export const VerifyWord = (board, startPos, direction, currentWord, players, gri
             ? board[startPos.row][startPos.col + i].letter
             : board[startPos.row + i][startPos.col].letter;
 
+        // console.log(`Entry ${i}: board letter = '${letter}', word letter = '${currentWord[i]}'`);
+
         if (letter === '')
             tileChanged = true;
         else if (letter !== currentWord[i])
