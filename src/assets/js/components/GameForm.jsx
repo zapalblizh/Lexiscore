@@ -55,7 +55,7 @@ export const GameForm = () => {
             setPlayers(prev =>
                 prev.map(player =>
                     player.id === turnData.playerId
-                        ? { ...player, score: score, turns: [...player.turns, turnData] }
+                        ? { ...player, score: player.score + score, turns: [...player.turns, turnData] }
                         : player
                 )
             );
