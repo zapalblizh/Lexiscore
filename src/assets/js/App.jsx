@@ -16,7 +16,7 @@ function App() {
 
             <div className="w-full">
                 <div className="mx-auto max-w-sm flex flex-col justify-center lg:justify-start gap-4">
-                    {gameStart ? <GameForm /> : <StartForm />}
+                    {!gameStart ? <StartForm />  : <GameForm />}
 
                     <Leaderboard />
                 </div>

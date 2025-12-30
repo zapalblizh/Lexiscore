@@ -3,7 +3,8 @@ import {GameContext} from "../GameContext.jsx";
 
 const renderPlayers = (players) => {
     const elements = [];
-    const sortedPlayers = players.sort((a, b) => b.score - a.score);
+    let sortedPlayers = [...players];
+    sortedPlayers = sortedPlayers.sort((a, b) => b.score - a.score);
 
     for (let i = 0; i < players.length; i++) {
         elements.push(

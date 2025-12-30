@@ -13,11 +13,11 @@ export const ErrorComponent = () => {
 
             const fadeOutTimer = setTimeout(() => {
                 setIsVisible(false);
-            }, 3000);
+            }, 6000);
 
             const clearErrorTimer = setTimeout(() => {
                 setErrorMessage(null);
-            }, 4000);
+            }, 7000);
 
             // 4. Cleanup function: clear timers if a new error comes in
             return () => {
