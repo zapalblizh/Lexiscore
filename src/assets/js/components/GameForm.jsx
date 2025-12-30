@@ -74,7 +74,6 @@ export const GameForm = () => {
             setCurrentWord("");
         }
         else {
-            console.log("I am inside else");
             setErrorMessage(validWord.message);
 
             // Reset startPos and currentWord

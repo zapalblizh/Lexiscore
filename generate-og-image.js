@@ -13,7 +13,7 @@ const htmlTemplate = `
     <title>{{title}}</title>
     <style>
         .bg-color {
-            background: linear-gradient(270deg, #80454E 0%, #6A1F2B 100%);
+            background: #6A1F2B;
         }
         
         h1 {
@@ -36,11 +36,12 @@ const htmlTemplate = `
           align-items: center;
           font-size: 100px;
           line-height: 0;
-          width: 200px;
-          height: 200px;
+          width: 180px;
+          height: 180px;
           margin: -30px 0 0 -30px;
         }
         .logo img {
+            border-radius: 16px;
             filter: drop-shadow(0 0 0.35rem rgba(0,0,0,0.7));
         }
     
@@ -56,10 +57,10 @@ const htmlTemplate = `
 <body style="width: 1200px; height: 630px; padding: 0; margin: 0; font-family: sans-serif">
     <div class="card bg-color" style="width: 1200px; height: 630px; box-sizing: border-box; color: #fff; padding: 70px 70px">
         <div class="logo">
-            <img src="https://lexiscore.netlify.app/public/img/lexiscore-logo.png" alt="Lexiscore Logo" style="width: 100%; height: 100%" />
+            <img src="https://lexiscore.netlify.app/img/lexiscore-logo.png" alt="Lexiscore Logo" style="width: 100%; height: 100%" />
         </div>
-        <h1 class="shadow" style="font-size: 72px; font-weight: 700; margin: 20px 0 10px 40px;">Lexiscore - Scrabble Companion</h1>
-        <p class="shadow" style="margin: 20px 0 0 40px; font-size: 24px; font-weight: 700;">LEXISCORE.NETLIFY.APP</p>
+        <h1 class="shadow" style="font-size: 72px; font-weight: 700; margin: 20px 0 10px 162px;">Lexiscore - Scrabble Companion</h1>
+        <p class="shadow" style="margin: 20px 0 0 162px; font-size: 24px; font-weight: 700;">LEXISCORE.NETLIFY.APP</p>
     </div>
 </body>
 `;
