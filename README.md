@@ -1,13 +1,13 @@
 # Lexiscore
 
-A modern, real-time Scrabble game tracking web application for multiple players. Built with React, Vite, and TailwindCSS.
+A companion for your scrabble games that helps you keep track of your scores and game board. Built with React, Vite, and TailwindCSS.
 
 ## Features
-- **Interactive Scrabble Board**: 15x15 grid with multiplier squares (Double/Triple Letter & Word scores)
-- **Multi-player Support**: Track games with up to 4 players
+- **Interactive Scrabble Board**: 15x15 grid with multiplier squares (Double/Triple Letter & Double/Triple Word)
+- **Players**: Minimum of two players, maximum of four players
 - **Score Tracking**: Automatic score calculation based on word and placement of word on the board
 - **Leaderboard**: Player ranking based on scores
-- **Word Validation**: Built-in dictionary verification using TWL (Tournament Word List)
+- **Word Validation**: Built-in dictionary verification using a TWL (Tournament Word List)
 
 ## Tech Stack
 - **Frontend**: React 19.1
@@ -59,6 +59,8 @@ Lexiscore/
 │       │   └── index.jsx      # App entry point
 │       └── css/               # TailwindCSS styles
 ├── public/
+    │
+    ├── img                   # Image assets
 │   └── twl.txt               # Scrabble dictionary
 └── index.html                # HTML entry point
 ```
