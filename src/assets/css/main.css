@@ -30,7 +30,9 @@
     --color-burgundy: #6b1f2b; /* Header, Footer, and Buttons */
     --color-burgundy-dark: #4e151e; /* Hover button State + Other uses possibly */
 
-    --color-red-error: #b00000; /* Error Message */
+    --color-error-highlight: #B42318; /* Border and Icon */
+    --color-red-error: #7A1C1C; /* Error Message */
+    --color-error-bg: #FDECEC; /* Background of Error Message */
 
     --color-action: #2762EA;
     --color-add-player: #10652F;
