@@ -2,10 +2,7 @@
 @import "tailwindcss-safe-area";
 
 /* Base */
-@import "./base/reset.css";
 @import "./base/base.css";
-@import "./base/typography.css";
-@import "./base/forms.css";
 
 /* Components */
 @import "./components/buttons.css";
@@ -37,6 +34,7 @@
 
     --color-board-blue-dark: #467E94; /* Used as tile color and as submission button background */
 
+    --color-skin-300: #fffbeb;
     --color-skin-400: #efe9dc; /* App Background */
     --color-skin-500: #e7ddcc; /* Tile Background */
     --color-skin-600: #cbb07a; /* Border Color */

@@ -29,7 +29,7 @@ export const Board = () => {
 
                     return (
                         <div onClick={() => UpdateSelectionStatus(row, col)} key={`${row}-${col}`} data-row={row} data-col={col}
-                             className={`tile border-board-lines ${board[row][col].bonus || ""} ${isStart ? "select-start border-2 md:border-4 border-green-500" : ""}`}>
+                             className={`tile border-board-lines ${board[row][col].letter ? 'bg-skin-300' : ''} ${board[row][col].bonus || ""} ${isStart ? "select-start border-2 md:border-4 border-green-500" : ""}`}>
                             <button className="w-full h-full" disabled={!gameStart}>
                                 <span className={'tile-text'}>{board[row][col].letter}</span>
                             </button>
