@@ -30,9 +30,10 @@
     --color-burgundy: #6b1f2b; /* Header, Footer, and Buttons */
     --color-burgundy-dark: #4e151e; /* Hover button State + Other uses possibly */
 
-    --color-red-error: #CA4A4C; /* Error Message */
+    --color-red-error: #b00000; /* Error Message */
 
-    --color-board-blue-dark: #467E94; /* Used as tile color and as submission button background */
+    --color-action: #2762EA;
+    --color-add-player: #10652F;
 
     --color-skin-300: #fffbeb;
     --color-skin-400: #efe9dc; /* App Background */
@@ -41,7 +42,7 @@
     --color-skin-700: #DDD1BA;
     --color-board-lines: #cfcfcf; /* Grid lines */
     --color-ink: #2a2321; /* Text Color */
-    --color-btn-disabled: #6B5257;
+    --color-btn-disabled: #80454E;
 
     --focus-outline: #d6b25e; /* Maybe use for fields on click on them -- Interactive */
 }

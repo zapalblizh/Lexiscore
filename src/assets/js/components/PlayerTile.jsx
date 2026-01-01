@@ -32,7 +32,7 @@ export const PlayerTile = ({Player}) => {
                 type="button"
                 disabled={players.length === 2}
                 onClick={() => RemovePlayer(Player)}
-                className="btn btn--xs whitespace-nowrap flex-shrink-0">
+                className="btn btn-delete btn--xs whitespace-nowrap flex-shrink-0">
                 Delete
             </button>
         </div>

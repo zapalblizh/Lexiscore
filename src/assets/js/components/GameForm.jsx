@@ -92,7 +92,7 @@ export const GameForm = () => {
             <span className="text-lg">If your word uses a blank letter, put your letter in square brackets [A]</span>
 
             <form onSubmit={HandleSubmit} className="w-full mx-auto flex flex-col justify-center items-center gap-4 p-4 bg-cursor border-2 rounded-xl">
-                <button type="button" className="btn-submit !bg-blue-800 whitespace-nowrap" onClick={() => setDirection(prev => prev === "horizontal" ? "vertical" : "horizontal")}>
+                <button type="button" className="btn-submit whitespace-nowrap" onClick={() => setDirection(prev => prev === "horizontal" ? "vertical" : "horizontal")}>
                     {direction === "horizontal" ? "Horizontal →" : "Vertical ↓" }
                 </button>
                 <div className="flex flex-wrap items-center justify-center gap-4">
