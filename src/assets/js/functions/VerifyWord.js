@@ -39,12 +39,17 @@ export const VerifyWord = (board, startPos, direction, currentWord, players, gri
     if (!tileChanged)
         return { valid: false, message: 'Your word needs to add at least one new letter to the board.'};
 
-    const conflictStart = direction === "horizontal"
-        ? board[startPos.row][startPos.col - 1].letter !== ''
-        : board[startPos.row - 1][startPos.col].letter !== '';
-    const conflictEnd = direction === "horizontal" ?
-        board[startPos.row][startPos.col + currentWord.length].letter !== ''
-        : board[startPos.row + currentWord.length][startPos.col].letter !== '';
+    let conflictStart;
+    let conflictEnd;
+
+    if (direction === "horizontal") {
+        conflictStart = startPos.col !== 0 ? board[startPos.row][startPos.col - 1].letter !== '' : false;
+        conflictEnd = (startPos.col + currentWord.length) !== 14 ? board[startPos.row][startPos.col + currentWord.length - 1].letter !== '' : false;
+    }
+    else {
+        conflictStart = startPos.row !== 0 ? board[startPos.row - 1][startPos.col].letter !== '' : false;
+        conflictEnd = (startPos.row + currentWord.length) !== 14 ? board[startPos.row + currentWord.length - 1][startPos.col].letter !== '' : false;
+    }
 
     const key = direction === "horizontal" ? startPos.col : startPos.row;
 
