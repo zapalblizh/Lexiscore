@@ -3,19 +3,19 @@
         height: clamp(1.25rem, 0.0781rem + 3.75vw, 3.125rem); /* Max viewport 1300px 20px -> 50px */
         width: clamp(1.25rem, 0.0781rem + 3.75vw, 3.125rem); /* Max viewport 1300px 20px -> 50px */
         color: #1b1b1b;
-        @apply flex justify-center items-center border border-skin-600 bg-skin-500;
+        @apply flex justify-center items-center border text-lg font-semibold border-skin-600 bg-skin-500;
     }
 
     .lx2 {
-        background: #9fc6d3 !important; /* Letter Bonus x2 */
+        background: #9fc6d3; /* Letter Bonus x2 */
     }
     .lx3 {
-        background: #4f8fa8 !important; /* Letter Bonus x3 */
+        background: #4f8fa8; /* Letter Bonus x3 */
     }
     .wx2 {
-        background: #e2a1a6 !important; /* Word Bonus x2 */
+        background: #e2a1a6; /* Word Bonus x2 */
     }
     .wx3 {
-        background: #c94b4b !important; /* Word Bonus x3 */
+        background: #c94b4b; /* Word Bonus x3 */
     }
 }

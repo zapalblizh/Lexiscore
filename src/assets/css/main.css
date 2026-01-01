@@ -2,10 +2,7 @@
 @import "tailwindcss-safe-area";
 
 /* Base */
-@import "./base/reset.css";
 @import "./base/base.css";
-@import "./base/typography.css";
-@import "./base/forms.css";
 
 /* Components */
 @import "./components/buttons.css";
@@ -33,17 +30,21 @@
     --color-burgundy: #6b1f2b; /* Header, Footer, and Buttons */
     --color-burgundy-dark: #4e151e; /* Hover button State + Other uses possibly */
 
-    --color-red-error: #CA4A4C; /* Error Message */
+    --color-error-highlight: #B42318; /* Border and Icon */
+    --color-red-error: #7A1C1C; /* Error Message */
+    --color-error-bg: #FDECEC; /* Background of Error Message */
 
-    --color-board-blue-dark: #467E94; /* Used as tile color and as submission button background */
+    --color-action: #2762EA;
+    --color-add-player: #10652F;
 
+    --color-skin-300: #fffbeb;
     --color-skin-400: #efe9dc; /* App Background */
     --color-skin-500: #e7ddcc; /* Tile Background */
     --color-skin-600: #cbb07a; /* Border Color */
     --color-skin-700: #DDD1BA;
     --color-board-lines: #cfcfcf; /* Grid lines */
     --color-ink: #2a2321; /* Text Color */
-    --color-btn-disabled: #6B5257;
+    --color-btn-disabled: #80454E;
 
     --focus-outline: #d6b25e; /* Maybe use for fields on click on them -- Interactive */
 }

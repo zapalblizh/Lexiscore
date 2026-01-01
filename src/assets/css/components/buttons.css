@@ -4,6 +4,14 @@
     }
 
     .btn-submit {
-        @apply bg-board-blue-dark font-bold text-white rounded px-3 py-2;
+        @apply bg-action hover:bg-action/90 font-bold text-white rounded px-3 py-2 hover:cursor-pointer;
+    }
+
+    .btn-add {
+        @apply bg-add-player hover:bg-add-player/90 shadow-xl font-bold text-white rounded px-3 py-2;
+    }
+
+    .btn-delete {
+        @apply bg-red-error hover:cursor-pointer hover:shadow-xl disabled:bg-gray-900/70;
     }
 }

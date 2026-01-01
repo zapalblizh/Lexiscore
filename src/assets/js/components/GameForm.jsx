@@ -9,11 +9,12 @@ import {CalculateWordScore} from "../functions/CalculateWordScore.js";
 
 export const GameForm = () => {
 
-    const {turns, setTurn, wordDict, setErrorMessage, players, setPlayers, startPos, setStartPos, direction, setDirection, currentWord, setCurrentWord, board, setBoard, SIZE_OF_GRID} = useContext(GameContext);
+    const {turns, setTurn, wordDict, errorMessage, setErrorMessage, players, setPlayers, startPos, setStartPos, direction, setDirection, currentWord, setCurrentWord, board, setBoard, SIZE_OF_GRID} = useContext(GameContext);
 
     // Handles Submission of a Word from Form
     const HandleSubmit = useCallback((e) => {
         e.preventDefault();
+        setErrorMessage("");
 
         let {processedWord, blankList} = BlankFilter(currentWord);
 
@@ -92,7 +93,7 @@ export const GameForm = () => {
             <span className="text-lg">If your word uses a blank letter, put your letter in square brackets [A]</span>
 
             <form onSubmit={HandleSubmit} className="w-full mx-auto flex flex-col justify-center items-center gap-4 p-4 bg-cursor border-2 rounded-xl">
-                <button type="button" className="btn-submit !bg-blue-800 whitespace-nowrap" onClick={() => setDirection(prev => prev === "horizontal" ? "vertical" : "horizontal")}>
+                <button type="button" className="btn-submit whitespace-nowrap" onClick={() => setDirection(prev => prev === "horizontal" ? "vertical" : "horizontal")}>
                     {direction === "horizontal" ? "Horizontal →" : "Vertical ↓" }
                 </button>
                 <div className="flex flex-wrap items-center justify-center gap-4">
@@ -113,7 +114,9 @@ export const GameForm = () => {
                     </div>
                 </div>
 
-                <ErrorComponent />
+                <div className={errorMessage ? "block w-full" : "hidden"}>
+                    <ErrorComponent />
+                </div>
 
                 <button type="submit"
                         className="btn-submit">

@@ -8,7 +8,7 @@ export const StartForm = () => {
 
     const AddPlayer = () => {
         if (players.length === 4) {
-            setErrorMessage('Maximum of 4 players allowed only');
+            setErrorMessage('Only 4 players can be added');
         }
         else {
             const newPlayer = {
@@ -29,11 +29,12 @@ export const StartForm = () => {
         <div className="flex flex-col justify-center gap-2">
             <div className="flex justify-between items-center">
                 <span className="text-2xl font-bold">Players</span>
-                <button type="button" onClick={() => AddPlayer()} className="btn btn--xs">Add</button>
+                <button type="button" onClick={() => AddPlayer()} className="btn btn-add">Add Player</button>
             </div>
 
             <form className="flex flex-col items-center gap-4 p-2 sm:px-6 sm:py-3 justify-center bg-cursor border-2 border-ink rounded-xl" onSubmit={(event) => {
                 event.preventDefault();
+                setErrorMessage("");
                 setGameStart(true);
             }}>
                 <div className="grid gap-4">
@@ -42,7 +43,7 @@ export const StartForm = () => {
                     ))}
                 </div>
 
-                <div className={errorMessage ? "block" : "hidden"}>
+                <div className={errorMessage ? "block w-full" : "hidden"}>
                     <ErrorComponent />
                 </div>
 
