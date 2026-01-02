@@ -16,10 +16,17 @@ export const GameProvider = ({children}) => {
     })
 
     const [turns, setTurn] = useState([]);
-    const [wordDict, setWordDict] = useState(new Set());
+    const [turnsHistory, setTurnsHistory] = useState([]);
+
+    const [wordDict, setWordDict] = useState(() => {
+        const saved = sessionStorage.getItem('wordDict');
+        return saved ? new Set(JSON.parse(saved)) : new Set();
+    });
     const [errorMessage, setErrorMessage] = useState(null);
 
     const [board, setBoard] = useState(() => {
+        const saved = sessionStorage.getItem('board');
+
         const initialBoard = Array.from({ length: SIZE_OF_GRID }, () =>
             Array.from({ length: SIZE_OF_GRID }, () => ({
                 letter: '',
@@ -33,7 +40,7 @@ export const GameProvider = ({children}) => {
             initialBoard[multipliers[i][0]][multipliers[i][1]].bonusAvailable = true;
         }
 
-        return initialBoard;
+        return saved ? JSON.parse(saved) : initialBoard;
     });
 
     // Creates array with two players and inserts it as initial state
@@ -49,7 +56,12 @@ export const GameProvider = ({children}) => {
 
         minPlayers = [...minPlayers, newPlayer];
     }
-    const [players, setPlayers] = useState(minPlayers);
+
+    const [players, setPlayers] = useState(() => {
+        const saved = sessionStorage.getItem('players');
+
+        return saved ? JSON.parse(saved) : minPlayers;
+    });
 
     // Dictionary of Words
     useEffect(() => {
@@ -71,7 +83,19 @@ export const GameProvider = ({children}) => {
 
 
     const [currentWord, setCurrentWord] = useState("");
-    const [gameStart, setGameStart] = useState(false);
+    const [gameStart, setGameStart] = useState(() => {
+        const saved = sessionStorage.getItem('gameStart');
+
+        return !!saved;
+    });
+
+    useEffect(() => {
+        sessionStorage.setItem('board', JSON.stringify(board));
+        sessionStorage.setItem('players', JSON.stringify(players));
+        sessionStorage.setItem('turnsHistory', JSON.stringify(turnsHistory));
+        sessionStorage.setItem('wordDict', JSON.stringify(Array.from(wordDict)));
+        sessionStorage.setItem('gameStart', JSON.stringify(gameStart));
+    }, [board, players, turnsHistory, wordDict]);
 
     const contextValue = {
         turns, setTurn,
@@ -82,7 +106,8 @@ export const GameProvider = ({children}) => {
         currentWord, setCurrentWord,
         gameStart, setGameStart,
         direction, setDirection,
-        startPos, setStartPos
+        startPos, setStartPos,
+        turnsHistory, setTurnsHistory
     };
 
     return <GameContext.Provider value={contextValue}>{children}</GameContext.Provider>;
