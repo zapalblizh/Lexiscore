@@ -1,12 +1,12 @@
 import {PlayerTile} from "./PlayerTile.jsx";
-import {useContext} from "react";
+import {useCallback, useContext} from "react";
 import {GameContext} from "../GameContext.jsx";
 import {ErrorComponent} from "./ErrorComponent.jsx";
 
 export const StartForm = () => {
     const {players, setGameStart, errorMessage, setErrorMessage, setPlayers} = useContext(GameContext);
 
-    const AddPlayer = () => {
+    const AddPlayer = useCallback(() => {
         if (players.length === 4) {
             setErrorMessage('Only 4 players can be added');
         }
@@ -23,7 +23,7 @@ export const StartForm = () => {
                 return [...prev, newPlayer];
             });
         }
-    }
+    }, [players, setErrorMessage, setPlayers]);
 
     return (
         <div className="flex flex-col justify-center gap-2">
@@ -39,7 +39,7 @@ export const StartForm = () => {
             }}>
                 <div className="grid gap-4">
                     {players.map((player) => (
-                        <PlayerTile key={player.id} Player={player} />
+                        <PlayerTile key={player.id} player={player} />
                     ))}
                 </div>
 

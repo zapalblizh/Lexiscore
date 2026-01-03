@@ -10,7 +10,10 @@ const Tile = memo(({row, col, item, isStart, gameStart, onSelect}) => {
     return (
         <div onClick={() => onSelect(row, col)} data-row={row} data-col={col}
              className={classes}>
-            <button className="w-full h-full" disabled={!gameStart}>
+            <button
+                className="w-full h-full"
+                aria-label={item.letter ? `Tile ${row + 1}, ${col + 1}: ${item.letter}` : `Empty tile ${row + 1}, ${col + 1}`}
+                disabled={!gameStart}>
                 <span className={'tile-text'}>{item.letter}</span>
             </button>
         </div>

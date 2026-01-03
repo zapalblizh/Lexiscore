@@ -89,16 +89,22 @@ export const GameForm = () => {
 
     return (
         <div className="flex flex-col gap-2">
-            <span className="text-2xl font-bold">Play a Word</span>
+            <h2 className="text-2xl font-bold">Play a Word</h2>
             <span className="text-lg">If your word uses a blank letter, put your letter in square brackets [A]</span>
 
             <form onSubmit={HandleSubmit} className="w-full mx-auto flex flex-col justify-center items-center gap-4 p-4 bg-cursor border-2 rounded-xl">
-                <button type="button" className="btn-submit whitespace-nowrap" onClick={() => setDirection(prev => prev === "horizontal" ? "vertical" : "horizontal")}>
+                <button
+                    type="button"
+                    className="btn-submit whitespace-nowrap"
+                    aria-label="Change direction for word placement"
+                    onClick={() => setDirection(prev => prev === "horizontal" ? "vertical" : "horizontal")}>
                     {direction === "horizontal" ? "Horizontal →" : "Vertical ↓" }
                 </button>
+
                 <div className="flex flex-wrap items-center justify-center gap-4">
                     <PlayerSelector />
                 </div>
+
                 <div className="flex flex-col gap-2">
                     <label className="font-bold" htmlFor="word">Your Word</label>
                     <div className="flex items-center gap-2">
@@ -118,9 +124,11 @@ export const GameForm = () => {
                     <ErrorComponent />
                 </div>
 
-                <button type="submit"
-                        className="btn-submit">
-                    <span>Submit</span>
+                <button
+                    type="submit"
+                    aria-label={`Submit word: ${currentWord}`}
+                    className="btn-submit">
+                    Submit
                 </button>
             </form>
         </div>
