@@ -21,7 +21,7 @@ const Tile = memo(({row, col, item, isStart, gameStart, onSelect}) => {
 });
 
 export const Board = memo(() => {
-    const {board, SIZE_OF_GRID, gameStart, startPos, setStartPos, setCurrentWord} = useContext(GameContext);
+    const {board, gameStart, startPos, setStartPos, setCurrentWord} = useContext(GameContext);
 
     const UpdateSelectionStatus = useCallback((row, col) => {
         setStartPos(prev => {
@@ -41,7 +41,7 @@ export const Board = memo(() => {
 
     // Renders grid and rerenders grid on any useState update
     return (
-        <div className="grid border border-skin-600  w-fit" style={{gridTemplateColumns: `repeat(${SIZE_OF_GRID}, 1fr)`,}}>
+        <div className="grid border border-skin-600  w-fit" style={{gridTemplateColumns: `repeat(${15}, 1fr)`,}}>
             {board.map((rowArr, row) =>
                 rowArr.map((cell, col) => {
                     const isStart = startPos.row === row && startPos.col === col;

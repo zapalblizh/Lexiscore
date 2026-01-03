@@ -5,7 +5,6 @@ export const GameContext = createContext();
 
 export const GameProvider = ({children}) => {
     const INITIAL_PLAYER_COUNT = 2;
-    const SIZE_OF_GRID = 15;
     const wordDict = useRef(null);
 
     // Gets dictionary only once on page load
@@ -39,8 +38,8 @@ export const GameProvider = ({children}) => {
     const [board, setBoard] = useState(() => {
         const saved = sessionStorage.getItem('board');
 
-        const initialBoard = Array.from({ length: SIZE_OF_GRID }, () =>
-            Array.from({ length: SIZE_OF_GRID }, () => ({
+        const initialBoard = Array.from({ length: 15 }, () =>
+            Array.from({ length: 15 }, () => ({
                 letter: '',
                 bonus: null,
                 blank: false
@@ -96,7 +95,6 @@ export const GameProvider = ({children}) => {
         turns, setTurn,
         players, setPlayers,
         wordDict: wordDict.current,
-        SIZE_OF_GRID,
         board, setBoard,
         errorMessage, setErrorMessage,
         currentWord, setCurrentWord,

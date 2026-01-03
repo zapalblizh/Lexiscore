@@ -1,12 +1,12 @@
-export const VerifyWord = (board, startPos, direction, currentWord, players, gridSize, wordDict) => {
+export const VerifyWord = (board, startPos, direction, currentWord, players, wordDict) => {
 
     const distanceFromStartToBoardEdge = direction === "horizontal"
-        ? gridSize - startPos.col - 1
-        : gridSize - startPos.row - 1;
+        ? 14 - startPos.col
+        : 14 - startPos.row;
 
     const includesCenter = direction === "horizontal"
-        ? startPos.row === Math.floor(gridSize / 2)
-        : startPos.col === Math.floor(gridSize / 2);
+        ? startPos.row === 7
+        : startPos.col === 7;
 
     if (currentWord.length === 0)
         return { valid: false, message: 'Enter a word to submit.'};
@@ -22,6 +22,7 @@ export const VerifyWord = (board, startPos, direction, currentWord, players, gri
         return { valid: false, message: 'Please enter a word that is included in the English dictionary.'};
 
     let tileChanged = false;
+    let hasExisting = false;
 
     for (let i = 0; i < currentWord.length; i++) {
         let letter = direction === "horizontal"
@@ -34,10 +35,15 @@ export const VerifyWord = (board, startPos, direction, currentWord, players, gri
             tileChanged = true;
         else if (letter !== currentWord[i])
             return { valid: false, message: 'Select a word that fits in the direction after starting tile and does not replace existing letters.'};
+        else hasExisting = true;
     }
 
     if (!tileChanged)
         return { valid: false, message: 'Your word needs to add at least one new letter to the board.'};
+
+    if (!hasExisting && !players.every(player => player.score === 0)) {
+        return { valid: false, message: 'Your word requires at least one letter to be already on the board.'};
+    }
 
     let conflictStart;
     let conflictEnd;
@@ -53,9 +59,9 @@ export const VerifyWord = (board, startPos, direction, currentWord, players, gri
 
     const key = direction === "horizontal" ? startPos.col : startPos.row;
 
-    // A = conflictStart B = conflictEnd C = key === 0 D = key === gridSize - 1
+    // A = conflictStart B = conflictEnd C = key === 0 D = key === 14
     // AB(C' + D') + BC + AC ==> AB + BC + AD
-    if (conflictEnd && (conflictStart || key === 0) || conflictStart && key === gridSize - 1) {
+    if (conflictEnd && (conflictStart || key === 0) || conflictStart && key === 14) {
         return { valid: false, message: 'Your word touches another letter in the grid that is outside your selection. If this letter is part of your word, extend your selection. Otherwise, choose a different position where to place your word.'};
     }
 
