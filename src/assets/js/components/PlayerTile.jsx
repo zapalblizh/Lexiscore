@@ -1,22 +1,22 @@
 import {GameContext} from "../GameContext.jsx";
-import {useContext} from "react";
+import {useCallback, useContext} from "react";
 
 export const PlayerTile = ({Player}) => {
-    const {players, setPlayers, setErrorMessage} = useContext(GameContext);
+    const {players, setPlayers} = useContext(GameContext);
 
-    const HandleNameChange = ({Player, name}) => {
+    const HandleNameChange = useCallback(({Player, name}) => {
         setPlayers(
             players.map(p => (
                 p.id === Player.id ? { ...p, name: name } : p)
             )
         );
-    }
+    }, [players, setPlayers]);
 
-    const RemovePlayer = (Player) => {
+    const RemovePlayer = useCallback((Player) => {
         setPlayers(
             players.filter(player => player.id !== Player.id)
         )
-    }
+    }, [players, setPlayers]);
 
     return (
         <div key={Player.id} className="flex w-full justify-center items-center gap-4">

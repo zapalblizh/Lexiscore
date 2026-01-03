@@ -1,4 +1,4 @@
-import React, { createContext, useState, useEffect } from "react";
+import React, {createContext, useState, useEffect, useMemo, useRef} from "react";
 import multipliers from "../_data/multipliers.js";
 
 export const GameContext = createContext();
@@ -6,9 +6,25 @@ export const GameContext = createContext();
 export const GameProvider = ({children}) => {
     const INITIAL_PLAYER_COUNT = 2;
     const SIZE_OF_GRID = 15;
+    const wordDict = useRef(null);
 
-    // New States to modify current program
-    const [direction, setDirection] = new useState("horizontal");
+    // Gets dictionary only once on page load
+    useEffect(() => {
+        const saved = sessionStorage.getItem('wordDict');
+        if (saved) {
+            wordDict.current = new Set(JSON.parse(saved));
+        } else {
+            fetch('../../../twl.txt')
+                .then(response => response.text())
+                .then(text => {
+                    const words = text.replace(/\r/g, '').split('\n');
+                    const dict = new Set(words);
+                    sessionStorage.setItem('wordDict', JSON.stringify(Array.from(dict)));
+                });
+        }
+    });
+
+    const [direction, setDirection] = useState("horizontal");
     const [startPos, setStartPos] = useState({
         status: false,
         row: null,
@@ -18,10 +34,6 @@ export const GameProvider = ({children}) => {
     const [turns, setTurn] = useState([]);
     const [turnsHistory, setTurnsHistory] = useState([]);
 
-    const [wordDict, setWordDict] = useState(() => {
-        const saved = sessionStorage.getItem('wordDict');
-        return saved ? new Set(JSON.parse(saved)) : new Set();
-    });
     const [errorMessage, setErrorMessage] = useState(null);
 
     const [board, setBoard] = useState(() => {
@@ -44,42 +56,28 @@ export const GameProvider = ({children}) => {
     });
 
     // Creates array with two players and inserts it as initial state
-    let  minPlayers = [];
-    for (let i = 0; i < INITIAL_PLAYER_COUNT; i++) {
-        const newPlayer = {
-            name: `Player ${i + 1}`,
-            id: i + 1,
-            currentPlayer: false,
-            score: 0,
-            turns: []
-        };
+    const minPlayers = useMemo(() => {
+        const players = [];
 
-        minPlayers = [...minPlayers, newPlayer];
-    }
+        for (let i = 0; i < INITIAL_PLAYER_COUNT; i++) {
+            const newPlayer = {
+                name: `Player ${i + 1}`,
+                id: i + 1,
+                currentPlayer: false,
+                score: 0,
+                turns: []
+            };
+            players.push(newPlayer);
+        }
+
+        return players;
+    }, [INITIAL_PLAYER_COUNT]);
 
     const [players, setPlayers] = useState(() => {
         const saved = sessionStorage.getItem('players');
 
         return saved ? JSON.parse(saved) : minPlayers;
     });
-
-    // Dictionary of Words
-    useEffect(() => {
-        fetch('../../../twl.txt')
-            .then((response) => {
-                if (!response.ok) {
-                    throw new Error("Network response was not ok");
-                }
-                return response.text();
-            })
-            .then((text) => {
-                const words = text.replace(/\r/g, '').split('\n');
-                setWordDict(new Set(words));
-            })
-            .catch(error => {
-                console.error("Failed to load word list:", error);
-            });
-    }, []);
 
 
     const [currentWord, setCurrentWord] = useState("");
@@ -93,14 +91,14 @@ export const GameProvider = ({children}) => {
         sessionStorage.setItem('board', JSON.stringify(board));
         sessionStorage.setItem('players', JSON.stringify(players));
         sessionStorage.setItem('turnsHistory', JSON.stringify(turnsHistory));
-        sessionStorage.setItem('wordDict', JSON.stringify(Array.from(wordDict)));
         sessionStorage.setItem('gameStart', JSON.stringify(gameStart));
-    }, [board, players, turnsHistory, wordDict]);
+    }, [board, players, turnsHistory, gameStart]);
 
     const contextValue = {
         turns, setTurn,
         players, setPlayers,
-        wordDict, SIZE_OF_GRID,
+        wordDict: wordDict.current,
+        SIZE_OF_GRID,
         board, setBoard,
         errorMessage, setErrorMessage,
         currentWord, setCurrentWord,

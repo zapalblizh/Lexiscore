@@ -17,10 +17,6 @@ A companion for your scrabble games that helps you keep track of your scores and
 
 ## Getting Started
 
-### Prerequisites
-- Node.js (version specified in `.nvmrc`)
-- npm
-
 ### Installation
 ```bash
 # Clone the repository
@@ -47,27 +43,19 @@ netlify build
 ```
 
 ## Project Structure
-```
-Lexiscore/
-├── src/
-│   └── assets/
-│       ├── js/
-│       │   ├── components/    # React components
-│       │   ├── functions/     # Game logic utilities
-│       │   ├── App.jsx        # Main app component
-│       │   ├── GameContext.jsx # Game state management
-│       │   └── index.jsx      # App entry point
-│       └── css/               # TailwindCSS styles
-├── public/
-    │
-    ├── img                   # Image assets
-│   └── twl.txt               # Scrabble dictionary
-└── index.html                # HTML entry point
-```
+- **src**: Has all the source code for the application.
+  - **assets**: Contains CSS, JS, and JSX files.
+    - **js/components**: Contains all react components. GameContext, which contains all state management of the SPA.
+    - **js/functions**: Contains all game logic utilities, such as functions for calculating word score or updating grid on rerendering after state update.
+    - **js/GameContext.jsx**: Holds all state management and initialization logic for the application.
+    - **js/App.jsx**: App component that renders all other components.
+    - **js/index.jsx**: App entry point.
+- **public**: Contains static assets such as images and TWL dictionary.
+- **index.html**: HTML entry point.
 
 ## License
 
-MIT License. See LICENSE file for details.
+MIT License. See [LICENSE](https://github.com/zapalblizh/Lexiscore?tab=MIT-1-ov-file) for details.
 
 ## Author
 

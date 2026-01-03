@@ -1,5 +1,4 @@
 @import "tailwindcss";
-@import "tailwindcss-safe-area";
 
 /* Base */
 @import "./base/base.css";
