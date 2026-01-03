@@ -28,6 +28,7 @@ export const PlayerSelector = () => {
                 <button key={player.id}
                         onClick={() => handlePlayerSelect(player.id)}
                         disabled={player.currentPlayer}
+                        aria-label={`Select ${player.name} as current player`}
                         className="btn btn--primary">
                     <span>{player.name}</span>
                 </button>

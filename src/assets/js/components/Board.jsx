@@ -1,12 +1,31 @@
 import {GameContext} from "../GameContext.jsx";
-import {useContext, useCallback} from "react";
+import {useContext, useCallback, memo} from "react";
 
-export const Board = () => {
+const Tile = memo(({row, col, item, isStart, gameStart, onSelect}) => {
+    let classes = 'tile border-board-lines ';
+    classes += item.letter ? 'bg-skin-300 ' : '';
+    classes += item.bonus ? `${item.bonus} ` : '';
+    classes += isStart ? 'select-start border-2 md:border-4 border-green-500' : '';
+
+    return (
+        <div onClick={() => onSelect(row, col)} data-row={row} data-col={col}
+             className={classes}>
+            <button
+                className="flex justify-center items-center w-full h-full"
+                aria-label={item.letter ? `Tile ${row + 1}, ${col + 1}: ${item.letter}` : `Empty tile ${row + 1}, ${col + 1}`}
+                disabled={!gameStart}>
+                <span className={'tile-text'}>{item.letter}</span>
+            </button>
+        </div>
+    );
+});
+
+export const Board = memo(() => {
     const {board, SIZE_OF_GRID, gameStart, startPos, setStartPos, setCurrentWord} = useContext(GameContext);
 
     const UpdateSelectionStatus = useCallback((row, col) => {
         setStartPos(prev => {
-            let next = prev;
+            let next = {...prev};
 
             if (!prev.status)
                 next = { status: true, row, col};
@@ -28,15 +47,18 @@ export const Board = () => {
                     const isStart = startPos.row === row && startPos.col === col;
 
                     return (
-                        <div onClick={() => UpdateSelectionStatus(row, col)} key={`${row}-${col}`} data-row={row} data-col={col}
-                             className={`tile border-board-lines ${board[row][col].letter ? 'bg-skin-300' : ''} ${board[row][col].bonus || ""} ${isStart ? "select-start border-2 md:border-4 border-green-500" : ""}`}>
-                            <button className="w-full h-full" disabled={!gameStart}>
-                                <span className={'tile-text'}>{board[row][col].letter}</span>
-                            </button>
-                        </div>
-                    );
+                        <Tile
+                            key={`${row}-${col}`}
+                            row={row}
+                            col={col}
+                            item={cell}
+                            isStart={isStart}
+                            gameStart={gameStart}
+                            onSelect={UpdateSelectionStatus}
+                        />
+                    )
                 })
             )}
         </div>
     );
-}
+});
