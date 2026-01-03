@@ -82,9 +82,7 @@ export const GameProvider = ({children}) => {
 
     const [currentWord, setCurrentWord] = useState("");
     const [gameStart, setGameStart] = useState(() => {
-        const saved = sessionStorage.getItem('gameStart');
-
-        return !!saved;
+        return sessionStorage.getItem('gameStart') === 'true';
     });
 
     useEffect(() => {

@@ -20,7 +20,7 @@ export const PlayerTile = ({player}) => {
 
     return (
         <div key={player.id} className="flex w-full justify-center items-center gap-4">
-            <label htmlFor={`player-${player.id}`}>Player {player.id} Name</label>
+            <label className="sr-only" htmlFor={`player-${player.id}`}>Player {player.id} Name</label>
             <input
                 type="text"
                 id={`player-${player.id}`}
