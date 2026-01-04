@@ -82,14 +82,6 @@ export const GetBonusWords = (direction, processedWord, startPos, board, emptyLi
 
     const bonusWords = [];
 
-    console.log("GetBonusWords called:", {
-        direction,
-        processedWord,
-        startPos,
-        emptyList,
-        blankList
-    });
-
     for (let i = 0; i < processedWord.length; i++) {
         const currentRow = direction === "horizontal" ? startPos.row : startPos.row + i;
         const currentCol = direction === "horizontal" ? startPos.col + i : startPos.col;
