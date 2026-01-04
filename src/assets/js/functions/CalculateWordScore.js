@@ -28,5 +28,9 @@ export const CalculateWordScore = (board, currentTurn) => {
     if (currentTurn.emptyList.filter(item => item === true).length === 7)
         score += 50;
 
+    currentTurn.bonusWords.forEach((item) => {
+        score += item.score ?? 0;
+    })
+
     return score;
 }

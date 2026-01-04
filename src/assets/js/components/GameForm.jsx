@@ -6,10 +6,11 @@ import {PlayerSelector} from "./PlayerSelector.jsx";
 import {ErrorComponent} from "./ErrorComponent.jsx";
 import {BlankFilter} from "../functions/BlankFilter.js";
 import {CalculateWordScore} from "../functions/CalculateWordScore.js";
+import {GetBonusWords} from "../functions/GetBonusWords.js";
 
 export const GameForm = () => {
 
-    const {turns, setTurn, wordDict, errorMessage, setErrorMessage, players, setPlayers, startPos, setStartPos, direction, setDirection, currentWord, setCurrentWord, board, setBoard, SIZE_OF_GRID} = useContext(GameContext);
+    const {turns, setTurn, wordDict, errorMessage, setErrorMessage, players, setPlayers, startPos, setStartPos, direction, setDirection, currentWord, setCurrentWord, board, setBoard} = useContext(GameContext);
 
     // Handles Submission of a Word from Form
     const HandleSubmit = useCallback((e) => {
@@ -19,7 +20,7 @@ export const GameForm = () => {
         let {processedWord, blankList} = BlankFilter(currentWord);
 
         // Returns alerts and true when passes through all checks
-        const validWord = VerifyWord(board, startPos, direction, processedWord.toUpperCase(), players, SIZE_OF_GRID, wordDict);
+        const validWord = VerifyWord(board, startPos, direction, processedWord.toUpperCase(), players, wordDict);
 
         if (validWord.valid) {
             let emptyList = [];
@@ -45,9 +46,11 @@ export const GameForm = () => {
                 wordScore: 0,
             };
 
-            setBoard(prev => {
-                return UpdateGrid(prev, turnData);
-            })
+            const updatedBoard = UpdateGrid(board, turnData);
+
+            turnData.bonusWords = GetBonusWords(direction, processedWord, startPos, updatedBoard, emptyList, turnData.blankList, wordDict);
+
+            setBoard(updatedBoard);
 
             // Calculate total score for the turn for player
             let score = CalculateWordScore(board, turnData);
@@ -85,7 +88,7 @@ export const GameForm = () => {
             })
             setCurrentWord("");
         }
-    }, [turns, setTurn, wordDict, setErrorMessage, players, setPlayers, startPos, setStartPos, direction, setDirection, currentWord, setCurrentWord, board, setBoard, SIZE_OF_GRID]);
+    }, [turns, setTurn, wordDict, setErrorMessage, players, setPlayers, startPos, setStartPos, direction, setDirection, currentWord, setCurrentWord, board, setBoard]);
 
     return (
         <div className="flex flex-col gap-2">
