@@ -10,7 +10,7 @@ import {GetBonusWords} from "../functions/GetBonusWords.js";
 
 export const GameForm = () => {
 
-    const {turns, setTurn, wordDict, errorMessage, setErrorMessage, players, setPlayers, startPos, setStartPos, direction, setDirection, currentWord, setCurrentWord, board, setBoard} = useContext(GameContext);
+    const {turns, addTurn, wordDict, errorMessage, setErrorMessage, players, setPlayers, startPos, setStartPos, direction, setDirection, currentWord, setCurrentWord, board, setBoard} = useContext(GameContext);
 
     // Handles Submission of a Word from Form
     const HandleSubmit = useCallback((e) => {
@@ -55,6 +55,13 @@ export const GameForm = () => {
             // Calculate total score for the turn for player
             let score = CalculateWordScore(board, turnData);
 
+            turnData.wordScore = score;
+
+            // Add turn to turns array
+            addTurn(prev => {
+                return [...prev, turnData];
+            });
+
             // Update player in players array
             setPlayers(prev =>
                 prev.map(player =>
@@ -63,11 +70,6 @@ export const GameForm = () => {
                         : player
                 )
             );
-
-            // Add turn to turns array
-            setTurn(prev => {
-                return [...prev, turnData];
-            });
 
             // Reset startPos and currentWord
             setStartPos({
@@ -88,14 +90,16 @@ export const GameForm = () => {
             })
             setCurrentWord("");
         }
-    }, [turns, setTurn, wordDict, setErrorMessage, players, setPlayers, startPos, setStartPos, direction, setDirection, currentWord, setCurrentWord, board, setBoard]);
+    }, [turns, addTurn, wordDict, setErrorMessage, players, setPlayers, startPos, setStartPos, direction, setDirection, currentWord, setCurrentWord, board, setBoard]);
 
     return (
-        <div className="flex flex-col gap-2">
-            <h2 className="text-2xl font-bold">Play a Word</h2>
-            <span className="text-lg">If your word uses a blank letter, put your letter in square brackets [A]</span>
+        <div className="max-w-sm flex flex-col gap-2">
+            <div>
+                <h2 className="text-2xl font-bold">Play a Word</h2>
+                <p className="text-lg">If your word uses a blank letter, put your letter in square brackets [A]</p>
+            </div>
 
-            <form onSubmit={HandleSubmit} className="w-full mx-auto flex flex-col justify-center items-center gap-4 p-4 bg-cursor border-2 rounded-xl">
+            <form onSubmit={HandleSubmit} className="max-w-sm flex flex-col items-center gap-4 p-4 bg-cursor border-2 rounded-xl">
                 <button
                     type="button"
                     className="btn-submit whitespace-nowrap"

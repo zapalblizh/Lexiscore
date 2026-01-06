@@ -22,10 +22,10 @@ export const Leaderboard = () => {
     const {players} = useContext(GameContext);
 
     return (
-        <div className="flex flex-col gap-2">
+        <div className="w-full flex flex-col gap-2 max-w-sm">
             <h2 className="text-2xl font-bold">Leaderboard</h2>
 
-            <div className="w-full mx-auto flex flex-col items-center gap-4 bg-cursor border-2 rounded-2xl py-3 px-6 shadow-[0_10px_40px_rgba(0,0,0,0.2)]">
+            <div className="w-full mx-auto flex flex-col items-center gap-4 bg-cursor border-2 rounded-2xl py-3 px-6">
                 {renderPlayers(players)}
             </div>
         </div>
