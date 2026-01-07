@@ -1,6 +1,6 @@
 @layer components {
     .btn {
-        @apply bg-burgundy hover:bg-burgundy-dark text-white font-bold rounded disabled:bg-btn-disabled;
+        @apply bg-burgundy hover:bg-burgundy-dark text-white font-bold rounded disabled:bg-btn-disabled hover:cursor-pointer;
     }
 
     .btn-submit {
@@ -8,7 +8,7 @@
     }
 
     .btn-add {
-        @apply bg-add-player hover:bg-add-player/90 shadow-xl font-bold text-white rounded px-3 py-2;
+        @apply bg-add-player hover:bg-add-player/90 hover:cursor-pointer shadow-xl font-bold text-white rounded px-3 py-2;
     }
 
     .btn-delete {

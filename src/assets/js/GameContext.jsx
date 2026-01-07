@@ -30,8 +30,11 @@ export const GameProvider = ({children}) => {
         col: null
     })
 
-    const [turns, setTurn] = useState([]);
-    const [turnsHistory, setTurnsHistory] = useState([]);
+    const [turns, addTurn] = useState(() => {
+        const saved = sessionStorage.getItem('turns');
+
+        return saved ? JSON.parse(saved) : [];
+    });
 
     const [errorMessage, setErrorMessage] = useState(null);
 
@@ -87,12 +90,12 @@ export const GameProvider = ({children}) => {
     useEffect(() => {
         sessionStorage.setItem('board', JSON.stringify(board));
         sessionStorage.setItem('players', JSON.stringify(players));
-        sessionStorage.setItem('turnsHistory', JSON.stringify(turnsHistory));
+        sessionStorage.setItem('turns', JSON.stringify(turns));
         sessionStorage.setItem('gameStart', JSON.stringify(gameStart));
-    }, [board, players, turnsHistory, gameStart]);
+    }, [board, players, turns, gameStart]);
 
     const contextValue = {
-        turns, setTurn,
+        turns, addTurn,
         players, setPlayers,
         wordDict: wordDict.current,
         board, setBoard,
@@ -101,7 +104,6 @@ export const GameProvider = ({children}) => {
         gameStart, setGameStart,
         direction, setDirection,
         startPos, setStartPos,
-        turnsHistory, setTurnsHistory
     };
 
     return <GameContext.Provider value={contextValue}>{children}</GameContext.Provider>;
